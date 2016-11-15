@@ -80,8 +80,8 @@ pad = torch.floor((filt_size -1)/2)
 optimState = {
    learningRate = lr,
    learningRateDecay = 1e-4,
-   weightDecay = 0,
-   momentum = 0
+   weightDecay = 1e-3,
+   momentum = 1e-4
 }
 
 
@@ -131,11 +131,11 @@ step = function(batch_size)
     batchInputs, batchOutputs = data.create_batch_tensor(train_start, train_end, batch_size, t, shuffle, false)
 
     local feval = function(x)
-      --collectgarbage()
+      collectgarbage()
       if x ~= params then
         params:copy(x)
       end
-      mlp:zeroGradParameters()
+      gradParams:zero()
 
       -- Perform gradient descent
       local outputs = mlp:forward(batchInputs)
