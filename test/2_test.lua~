@@ -3,7 +3,7 @@ require 'nn'
 require 'cunn'
 require 'cutorch'
 npy4th = require 'npy4th'
-require '../lib/function'
+require '../../3_Torch_Network/src_lua_gpu/function'
 
 -- parser :
 cmd = torch.CmdLine()

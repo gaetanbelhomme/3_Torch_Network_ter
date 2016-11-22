@@ -24,7 +24,7 @@ name_save = str.split(name_save, '.')[0]
 input_image, input_header = nrrd.read(input_image)
 
 #input_image = (input_image.astype(float) - 255.5 / 2) / 255.0
-#input_image = (input_image.astype(float)) / 65536.0
+input_image = (input_image.astype(float)) / 65536.0
 
 input_image = input_image.reshape((1,image_size, image_size)).astype(np.float32)
 

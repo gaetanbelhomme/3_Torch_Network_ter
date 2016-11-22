@@ -26,7 +26,11 @@ defaults = {
   fc = 'true',
   save_net = '../../Network/generic.bin',
   dropout = 0.1,
-  nb_conv = 3
+  nb_conv = 3,
+  train_start_path = '../../Data/train/train_dataset_start.npy',
+  train_end_path = '../../Data/train/train_dataset_end.npy',
+  valid_start_path = '../../Data/train/valid_dataset_start.npy',
+  valid_end_path = '../../Data/train/valid_dataset_end.npy'
 }
 
 cmd = torch.CmdLine()
@@ -44,7 +48,10 @@ cmd:option('-fc', defaults.fc, 'fully connected layers, true or false')
 cmd:option('-save_net', defaults.save_net, 'Folder to save network')
 cmd:option('-dropout', defaults.dropout, 'probability of dropout')
 cmd:option('-nb_conv', defaults.nb_conv, 'nb conv per layer')
-
+cmd:option('-train_start', defaults.train_start_path, 'train start files')
+cmd:option('-train_end', defaults.train_end_path, 'train end files')
+cmd:option('-valid_start', defaults.valid_start_path, 'valid start files')
+cmd:option('-valid_end', defaults.valid_end_path, 'valid end files')
 
 opt = cmd:parse(arg)
 
@@ -84,14 +91,18 @@ optimState = {
    momentum = 1e-4
 }
 
+train_start_path = opt.train_start
+train_end_path = opt.train_end
+valid_start_path = opt.valid_start
+valid_end_path = opt.valid_end
 
 -- Load data
 --
-train_start = npy4th.loadnpy('../../Data/all/train_dataset_start.npy')
-train_end = npy4th.loadnpy('../../Data/all/train_dataset_end.npy')
+train_start = npy4th.loadnpy(train_start_path)
+train_end = npy4th.loadnpy(train_end_path)
 
-valid_start = npy4th.loadnpy('../../Data/all/valid_dataset_start.npy')
-valid_end = npy4th.loadnpy('../../Data/all/valid_dataset_end.npy')
+valid_start = npy4th.loadnpy(valid_start_path)
+valid_end = npy4th.loadnpy(valid_end_path)
 
 train_size = train_start:size()[1]
 valid_size = valid_start:size()[1]
